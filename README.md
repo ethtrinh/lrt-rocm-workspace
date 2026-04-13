@@ -11,8 +11,8 @@ It also codifies general engineering discipline — TDD, structured debugging, c
 ## Installation
 
 ```
-/plugin marketplace add ethtrinh/lrt-rocm
-/plugin install lrt-rocm@lrt-marketplace
+/plugin marketplace add ethtrinh/lrt-rocm-workspace
+/plugin install lrt-rocm@lrt-rocm-workspace
 /reload-plugins
 ```
 
