@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# SessionStart hook for lrt-plugin
+
+set -euo pipefail
+
+# Determine plugin root directory
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+# Read using-lrt content
+using_lrt_content=$(cat "${PLUGIN_ROOT}/skills/using-lrt/SKILL.md" 2>&1 || echo "Error reading using-lrt skill")
+
+# Escape string for JSON embedding using bash parameter substitution.
+escape_for_json() {
+    local s="$1"
+    s="${s//\\/\\\\}"
+    s="${s//\"/\\\"}"
+    s="${s//$'\n'/\\n}"
+    s="${s//$'\r'/\\r}"
+    s="${s//$'\t'/\\t}"
+    printf '%s' "$s"
+}
+
+using_lrt_escaped=$(escape_for_json "$using_lrt_content")
+session_context="<EXTREMELY_IMPORTANT>\nYou have lrt.\n\n**Below is the full content of your 'lrt-rocm:using-lrt' skill - your introduction to using skills. For all other skills, use the 'Skill' tool:**\n\n${using_lrt_escaped}\n</EXTREMELY_IMPORTANT>"
+
+# Claude Code output format
+printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$session_context"
+
+exit 0
