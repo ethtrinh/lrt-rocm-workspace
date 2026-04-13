@@ -3,7 +3,7 @@ name: setup
 description: Use when setting up the lrt-rocm workspace for the first time, or when a new team member installs the plugin
 ---
 
-Set up the ROCm development workspace. This skill discovers ROCm repositories on the filesystem, generates a directory map, and scaffolds the workspace structure.
+Set up the ROCm development workspace. This skill discovers the rocm-systems repository on the filesystem (or clones it), generates a directory map, and scaffolds the workspace structure.
 
 ## 1. Check if already set up
 
@@ -11,35 +11,28 @@ Look for `directory-map.md` in the current working directory.
 - If it exists and has populated paths, ask: "Workspace already configured. Re-run setup to update paths?"
 - If user declines, stop.
 
-## 2. Find ROCm repositories
+## 2. Find rocm-systems repository
 
-Search for TheRock and rocm-systems directories. Check these locations in order:
+Search for rocm-systems directories. Check these locations in order:
 
 ```bash
 # Common locations to search
 for dir in /develop /home/$USER /opt /workspace ~/src ~/projects ~/code; do
-  find "$dir" -maxdepth 3 -name "TheRock" -type d 2>/dev/null
   find "$dir" -maxdepth 4 -name "rocm-systems" -type d 2>/dev/null
 done
 ```
 
-Also check if TheRock has submodules already checked out:
-```bash
-# If TheRock found at <path>, check for submodules
-ls <therock_path>/rocm-systems/
-ls <therock_path>/base/rocm-kpack/
-ls <therock_path>/rocm-libraries/
-```
-
-### If TheRock is found:
+### If rocm-systems is found:
 
 Report the discovered paths and ask user to confirm:
-> "Found TheRock at `<path>`. Is this the correct repository?"
+> "Found rocm-systems at `<path>`. Is this the correct repository?"
 
-### If TheRock is NOT found:
+If multiple are found, list them and ask which is the primary working copy.
+
+### If rocm-systems is NOT found:
 
 Ask the user:
-> "I couldn't find a TheRock repository on this system. Would you like to:
+> "I couldn't find a rocm-systems repository on this system. Would you like to:
 > 1. Clone it now (I'll need a target directory)
 > 2. Provide the path manually
 > 3. Skip for now (you can update directory-map.md later)"
@@ -47,15 +40,13 @@ Ask the user:
 If cloning:
 ```bash
 cd <user-chosen-dir>
-git clone https://github.com/ROCm/TheRock.git
-cd TheRock
-git submodule update --init
+git clone https://github.com/ROCm/rocm-systems.git
 ```
 
 ## 3. Find or create build directory
 
 Ask the user:
-> "Where is your build directory? (default: `<therock_path>-build`)"
+> "Where is your build directory? (default: `<rocm_systems_path>/projects/clr/build`)"
 
 If it doesn't exist, ask if they want to create it.
 
@@ -99,15 +90,23 @@ Using the discovered paths, write `directory-map.md` with populated values:
 ```markdown
 # ROCm Directory Map
 
+This document maps out where all ROCm-related directories live on this system.
+It is auto-populated by `/lrt-rocm:setup` or can be edited manually.
+
 ## Repository Aliases
 
 | Alias | Path | Notes |
 |-------|------|-------|
-| therock | <discovered_therock_path> | Main ROCm build repo |
-| rocm-systems | <therock_path>/rocm-systems | ROCm Systems Superrepo (submodule) |
-| rocm-libraries | <therock_path>/rocm-libraries | ROCm Libraries Superrepo (submodule) |
-| rocm-kpack | <therock_path>/base/rocm-kpack | Kernel packaging tools (submodule) |
+| rocm-systems | <discovered_rocm_systems_path> | ROCm Systems (primary working copy) |
 | workspace | <cwd> | This meta-workspace |
+
+## Additional rocm-systems Checkouts
+
+If additional checkouts were discovered, list them here:
+
+| Path | Notes |
+|------|-------|
+| <additional_path> | <notes> |
 
 ## Build Trees
 
@@ -122,7 +121,7 @@ Using the discovered paths, write `directory-map.md` with populated values:
 
 Replace placeholder paths in `CLAUDE.md` with the discovered values:
 - `<build-dir>` with the actual build directory
-- `<therock-dir>` with the actual TheRock path
+- `<rocm-systems-dir>` with the actual rocm-systems path
 - `<your-gpu-family>` with the detected/chosen GPU family
 
 ## 8. VSCode integration (optional)
@@ -143,7 +142,7 @@ If yes:
 ## 9. Summary
 
 Report what was set up:
-- TheRock path
+- rocm-systems path
 - Build directory
 - Target GPU architecture
 - Files created/updated
