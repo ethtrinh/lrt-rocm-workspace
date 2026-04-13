@@ -46,7 +46,7 @@ Good for making changes to the build infra when we aren't expecting to need to d
 1. CMake configure (update paths from your directory-map.md):
 
 ```
-cmake -B <build-dir> -S <therock-dir> -GNinja -DTHEROCK_AMDGPU_FAMILIES=<your-gpu-family> \
+cmake -B <clr-build-dir> -S <therock-dir> -GNinja -DTHEROCK_AMDGPU_FAMILIES=<your-gpu-family> \
   -DCMAKE_C_COMPILER_LAUNCHER=ccache \
   -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 ```
@@ -54,7 +54,7 @@ cmake -B <build-dir> -S <therock-dir> -GNinja -DTHEROCK_AMDGPU_FAMILIES=<your-gp
 2. Build entire project (very time consuming)
 
 ```
-cd <build-dir> && ninja
+cd <clr-build-dir> && ninja
 ```
 
 #### Working on specific components
@@ -62,7 +62,7 @@ cd <build-dir> && ninja
 Often we have to work on specific subsets of ROCm. We do this with -DTHEROCK_ENABLE_* flags as described in TheRock/README.md. Once the project is configured for the proper subset, it is typical to iterate by expunging and rebuilding a specific named project. Example:
 
 ```
-cd <build-dir>
+cd <clr-build-dir>
 ninja clr+expunge && ninja clr+dist
 ```
 

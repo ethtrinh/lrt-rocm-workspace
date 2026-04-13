@@ -43,12 +43,17 @@ cd <user-chosen-dir>
 git clone https://github.com/ROCm/rocm-systems.git
 ```
 
-## 3. Find or create build directory
+## 3. Find or create build directories
 
-Ask the user:
-> "Where is your build directory? (default: `<rocm_systems_path>/projects/clr/build`)"
+There are two standard build directories within rocm-systems. Present both defaults and let the user confirm or override each:
 
-If it doesn't exist, ask if they want to create it.
+> "Build directories (relative to rocm-systems root):
+> - **CLR build:** `projects/clr/build` — for HIP/OCL runtime builds
+> - **hip-tests build:** `projects/hip-tests/build` — for HIP test builds
+>
+> Accept defaults or provide custom paths?"
+
+If a directory doesn't exist, ask if they want to create it.
 
 ## 4. Detect GPU architecture
 
@@ -111,16 +116,22 @@ If additional checkouts were discovered, list them here:
 ## Build Trees
 
 ### Active Builds
-- **Main build:** `<build_dir>`
+- **CLR build:** `<rocm_systems_path>/projects/clr/build`
+  - For: HIP and OCL runtime builds
   - Configuration: Release
   - Target architecture: [<detected_gpu>]
   - Built ROCm installation is under `dist/rocm`
+- **hip-tests build:** `<rocm_systems_path>/projects/hip-tests/build`
+  - For: HIP unit tests and stress tests
+  - Configuration: Debug
+  - Target architecture: [<detected_gpu>]
 ```
 
 ## 7. Update CLAUDE.md paths
 
 Replace placeholder paths in `CLAUDE.md` with the discovered values:
-- `<build-dir>` with the actual build directory
+- `<clr-build-dir>` with the actual CLR build directory (default: `<rocm_systems_path>/projects/clr/build`)
+- `<hip-tests-build-dir>` with the actual hip-tests build directory (default: `<rocm_systems_path>/projects/hip-tests/build`)
 - `<rocm-systems-dir>` with the actual rocm-systems path
 - `<your-gpu-family>` with the detected/chosen GPU family
 
@@ -143,7 +154,8 @@ If yes:
 
 Report what was set up:
 - rocm-systems path
-- Build directory
+- CLR build directory
+- hip-tests build directory
 - Target GPU architecture
 - Files created/updated
 - VSCode integration status

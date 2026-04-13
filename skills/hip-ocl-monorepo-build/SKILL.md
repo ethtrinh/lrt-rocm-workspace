@@ -35,7 +35,7 @@ Use this skill when you need to:
 
 - **rocm-systems**: The monorepo that hosts ROCr, HIP, CLR, and OCL source code. All contributions follow the guidelines in `rocm-systems/CONTRIBUTING.md` on the `develop` branch.
 - **CLR (Common Language Runtime)**: The directory containing shared runtime code. HIP and OCL builds both live under CLR, controlled by `-DCLR_BUILD_HIP` and `-DCLR_BUILD_OCL` CMake flags.
-- **HIP_DIR / CLR_DIR / HIPTESTS_DIR**: Environment variables pointing to the `hip`, `clr`, and `hip-tests` source directories respectively.
+- **HIP_DIR / CLR_DIR / HIPTESTS_DIR**: Environment variables pointing to the `projects/hip`, `projects/clr`, and `projects/hip-tests` source directories respectively (relative to the rocm-systems root).
 - **ROCM_PATH**: Typically `/opt/rocm`. Used by CMake and the test harness to locate ROCm toolchain components.
 - **offload-arch**: GPU target architecture string (e.g., `gfx1201`). Passed via `-DOFFLOAD_ARCH_STR` when building tests.
 
@@ -90,12 +90,13 @@ make -j$(nproc) install
 
 ### 2. Build HIP on AMD
 
-Set up environment variables first, then configure and build via CLR:
+Set up environment variables first, then configure and build via CLR. All paths are relative to the rocm-systems root (see `directory-map.md` for the absolute path):
 
 ```bash
-export HIP_DIR="$(readlink -f hip)"
-export CLR_DIR="$(readlink -f clr)"
-export HIPTESTS_DIR="$(readlink -f hip-tests)"
+# From the rocm-systems root directory
+export HIP_DIR="$(readlink -f projects/hip)"
+export CLR_DIR="$(readlink -f projects/clr)"
+export HIPTESTS_DIR="$(readlink -f projects/hip-tests)"
 export ROCM_PATH=/opt/rocm
 
 cd "$CLR_DIR"
@@ -112,6 +113,8 @@ cmake \
 make -j$(nproc)
 make install
 ```
+
+> **Default build directory:** `projects/clr/build` (i.e. `$CLR_DIR/build`)
 
 ### 3. Build OCL (OpenCL)
 
@@ -131,6 +134,8 @@ make -j$(nproc)
 
 ### 4. Build and Run HIP Unit Tests
 
+> **Default build directory:** `projects/hip-tests/build` (i.e. `$HIPTESTS_DIR/build`)
+
 ```bash
 cd "$HIPTESTS_DIR"
 mkdir -p build; cd build
@@ -147,6 +152,8 @@ make build_tests -j$(nproc)
 ```
 
 ### 5. Build and Run HIP Stress Tests
+
+> **Default build directory:** `projects/hip-tests/build` (i.e. `$HIPTESTS_DIR/build`)
 
 ```bash
 cd "$HIPTESTS_DIR"

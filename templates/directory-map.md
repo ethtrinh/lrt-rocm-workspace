@@ -18,8 +18,12 @@ These aliases are used by `/lrt-rocm:stage-review` and other commands to resolve
 ## Build Trees
 
 ### Active Builds
-- **Main build:** ``
+- **CLR build:** `projects/clr/build`
+  - For: HIP and OCL runtime builds
   - Configuration: Release
   - Target architecture: []
-  - CMake flags:
   - Built ROCm installation is under `dist/rocm`
+- **hip-tests build:** `projects/hip-tests/build`
+  - For: HIP unit tests and stress tests
+  - Configuration: Debug
+  - Target architecture: []
