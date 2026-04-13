@@ -1,0 +1,15 @@
+{
+  "name": "lrt-rocm-workspace",
+  "description": "LRT ROCm plugin marketplace",
+  "owner": {
+    "name": "Ethan Trinh"
+  },
+  "plugins": [
+    {
+      "name": "lrt-rocm",
+      "description": "ROCm development workflows, build knowledge, and engineering practices for Claude Code",
+      "version": "1.0.0",
+      "source": "./"
+    }
+  ]
+}

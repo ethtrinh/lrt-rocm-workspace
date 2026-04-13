@@ -41,6 +41,3 @@ __pycache__/
 
 # OS files
 Thumbs.db
-
-# Plugin cache (generated at install time)
-.claude-plugin/marketplace.json
