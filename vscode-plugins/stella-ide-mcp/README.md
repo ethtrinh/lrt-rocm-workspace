@@ -8,7 +8,7 @@ Zero-dependency VSCode extension that runs an MCP server for Claude Code integra
 
 ```bash
 # For VSCode Remote SSH:
-ln -s /home/stella/claude-rocm-workspace/vscode-plugins/stella-ide-mcp ~/.vscode-server/extensions/stella-ide-mcp
+ln -s /path/to/lrt-rocm/vscode-plugins/stella-ide-mcp ~/.vscode-server/extensions/stella-ide-mcp
 
 # For local VSCode:
 ln -s /path/to/stella-ide-mcp ~/.vscode/extensions/stella-ide-mcp
@@ -19,7 +19,7 @@ Reload VSCode window: `Ctrl+Shift+P` → "Developer: Reload Window"
 ### Option 2: Launch VSCode with extension path
 
 ```bash
-code --extensionDevelopmentPath=/home/stella/claude-rocm-workspace/vscode-plugins/stella-ide-mcp
+code --extensionDevelopmentPath=/path/to/lrt-rocm/vscode-plugins/stella-ide-mcp
 ```
 
 ## Configure Claude Code

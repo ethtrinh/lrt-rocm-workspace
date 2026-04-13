@@ -404,7 +404,7 @@ manifest_relpath = self.compute_manifest_relative_path(binary_path, prefix_dir)
 with tempfile.TemporaryDirectory(dir="/develop/tmp") as tmpdir:
     process(tmpdir)
 
-CONFIG_PATH = Path("/home/stella/rocm-workspace/config.json")
+CONFIG_PATH = Path("/home/user/rocm-workspace/config.json")
 ```
 
 ✅ **Good:**
