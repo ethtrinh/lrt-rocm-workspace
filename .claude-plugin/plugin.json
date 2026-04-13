@@ -1,0 +1,19 @@
+{
+  "name": "lrt-rocm",
+  "description": "ROCm development workflows, build knowledge, and engineering practices for Claude Code",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ethan Trinh"
+  },
+  "license": "UNLICENSED",
+  "keywords": [
+    "rocm",
+    "hip",
+    "therock",
+    "build-infra",
+    "tdd",
+    "debugging",
+    "skills",
+    "team-workflows"
+  ]
+}
