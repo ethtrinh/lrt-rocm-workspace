@@ -8,6 +8,9 @@ Working on the ROCm stack (HIP, ROCr, OpenCL, TheRock) involves complex multi-st
 
 It also codifies general engineering discipline — TDD, structured debugging, code review rigor, verification before claiming success — so the AI assistant follows the same standards the team holds itself to.
 
+## Claude Code installation for AMD users:
+https://amd.atlassian.net/wiki/spaces/CLRT/pages/1451546255/Claude+Code+with+ROCm+Workspace
+
 ## Installation
 
 ```
