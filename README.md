@@ -26,7 +26,7 @@ Restart your Claude session if changes don't take effect.
 After installing, run the setup skill to configure your workspace:
 
 ```
-/lrt-rocm:setup
+/setup
 ```
 
 This will:
