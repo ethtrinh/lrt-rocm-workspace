@@ -3,6 +3,12 @@
 This document maps out where all ROCm-related directories live on this system.
 It is auto-populated by `/lrt-rocm:setup` or can be edited manually.
 
+## Environment
+
+| Setting | Value |
+|---------|-------|
+| OS | |
+
 ## Repository Aliases
 
 These aliases are used by `/lrt-rocm:stage-review` and other commands to resolve short names to paths.

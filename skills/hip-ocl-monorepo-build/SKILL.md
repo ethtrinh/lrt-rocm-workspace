@@ -1,34 +1,35 @@
 ---
 name: hip-ocl-monorepo-build
-description: Use when building ROCr, HIP, or OCL from the ROCm rocm-systems monorepo, creating branches/PRs, running tests, or troubleshooting CMake/build errors
+description: Use when explicitly building via the rocm-systems monorepo (not the default — use lrt-rocm:the-rock for HIP/OCL builds). Covers rocm-systems branches/PRs, CI pipelines, and monorepo-specific troubleshooting
 ---
 
 # HIP/OCL Monorepo Build Guide
 
 Build instructions for the ROCm rocm-systems monorepo covering ROCr runtime, HIP (AMD), OpenCL (OCL), testing, branching, CI, and common troubleshooting steps.
 
+> **Important:** TheRock (`lrt-rocm:the-rock`) is the **preferred default** for building HIP, OCL, hip-tests, and OCL tests. Use this rocm-systems monorepo skill only when the user **explicitly** asks to build via rocm-systems, or when working on rocm-systems-specific infrastructure (branches, PRs, CI pipelines). If uncertain, default to `lrt-rocm:the-rock`.
+
 ## When to Use This Skill
 
-Use this skill when you need to:
+Use this skill **only** when the user explicitly needs the rocm-systems monorepo workflow:
 
 - **Build ROCr runtime** from the `rocm-systems` monorepo
-- **Build HIP on AMD** using the CLR (Common Language Runtime) directory structure
-- **Build OpenCL (OCL)** from the monorepo
-- **Build and run HIP tests** (unit tests and stress tests) against a locally built HIP
+- **Build HIP/OCL via rocm-systems** when the user specifically requests the monorepo approach (not the default — use `lrt-rocm:the-rock` instead)
 - **Create a feature branch and open a pull request** in the `rocm-systems` repo
 - **Trigger CI pipelines** (Azure Pipelines / PSDB jobs) on a PR
 - **Rebase your development branch** onto `develop`
-- **Troubleshoot CMake or build errors** (missing LLVM, missing CppHeaderParser, etc.)
+- **Troubleshoot CMake or build errors** specific to rocm-systems (missing LLVM, missing CppHeaderParser, etc.)
 
 ### Trigger Conditions
 
 | Situation | This skill applies |
 |---|---|
-| User asks how to build HIP, ROCr, or OCL | Yes |
-| User hits a CMake error mentioning LLVM or CppHeaderParser | Yes |
-| User wants to run `hip-tests` catch tests or stress tests | Yes |
+| User asks how to build HIP, ROCr, or OCL (general) | **No — use `lrt-rocm:the-rock` by default** |
+| User explicitly asks to build via rocm-systems / monorepo | Yes |
+| User hits a CMake error mentioning LLVM or CppHeaderParser in rocm-systems | Yes |
+| User wants to run `hip-tests` or stress tests (general) | **No — use `lrt-rocm:the-rock` by default** |
 | User asks about branch naming or PR workflow for rocm-systems | Yes |
-| User needs to trigger CI on a PR | Yes |
+| User needs to trigger CI on a PR in rocm-systems | Yes |
 | User asks about general ROCm installation or package management | No — use ROCm install docs instead |
 
 ## Key Concepts
