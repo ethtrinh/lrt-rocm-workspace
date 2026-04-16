@@ -44,6 +44,7 @@ This will:
 | `setup` | First-time workspace setup and directory discovery |
 | `hip-ocl-monorepo-build` | Build ROCr, HIP, and OpenCL from the rocm-systems monorepo |
 | `regression-bisect-hip-ocl` | Git bisect for HIP/OCL test regressions |
+| `the-rock` | Build HIP, and OpenCL from TheRock |
 
 ### Code review workflow
 
