@@ -15,12 +15,16 @@ These aliases are used by `/lrt-rocm:stage-review` and other commands to resolve
 
 | Alias | Path | Notes |
 |-------|------|-------|
-| therock | | Main ROCm build repo |
-| rocm-systems | | ROCm Systems Superrepo (submodule) |
-| rocm-libraries | | ROCm Libraries Superrepo (submodule) |
-| rocm-kpack | | Kernel packaging tools (submodule) |
+| therock | | Main ROCm build repo (builds in-tree) |
 | workspace | | This meta-workspace |
 
+<!-- Uncomment below if you also work with rocm-systems directly -->
+<!-- | rocm-systems | | ROCm Systems Superrepo (submodule) | -->
+<!-- | rocm-libraries | | ROCm Libraries Superrepo (submodule) | -->
+<!-- | rocm-kpack | | Kernel packaging tools (submodule) | -->
+
+<!-- Uncomment below if you use rocm-systems build directories -->
+<!--
 ## Build Trees
 
 ### Active Builds
@@ -33,3 +37,4 @@ These aliases are used by `/lrt-rocm:stage-review` and other commands to resolve
   - For: HIP unit tests and stress tests
   - Configuration: Debug
   - Target architecture: []
+-->
