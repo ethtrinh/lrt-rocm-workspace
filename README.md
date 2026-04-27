@@ -68,9 +68,7 @@ This will:
 | `systematic-debugging` | Diagnose bugs methodically before fixing |
 | `brainstorming` | Explore intent and requirements before building |
 | `writing-plans` | Design implementation plans before coding |
-| `executing-plans` | Execute plans step-by-step with checkpoints |
-| `subagent-driven-development` | Parallelize independent tasks with subagents |
-| `requesting-code-review` | Dispatch reviewer subagent |
+| `subagent-driven-development` | Orchestrate plan execution with implementer, spec-reviewer, and code-reviewer agents |
 | `receiving-code-review` | Evaluate review feedback with rigor |
 | `verification-before-completion` | Prove work is done with evidence |
 | `finishing-a-development-branch` | Merge, PR, or clean up completed work |
