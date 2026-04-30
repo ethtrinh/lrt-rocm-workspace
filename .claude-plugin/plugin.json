@@ -1,7 +1,7 @@
 {
   "name": "lrt-rocm",
   "description": "ROCm development workflows, build knowledge, and engineering practices for Claude Code",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": {
     "name": "Ethan Trinh"
   },
@@ -15,5 +15,15 @@
     "debugging",
     "skills",
     "team-workflows"
-  ]
+  ],
+  "mcpServers": {
+    "confluence": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp#confluence"
+    },
+    "jira": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp#jira"
+    }
+  }
 }
