@@ -9,6 +9,26 @@ Build guide for CLR (Compute Language Runtime) with PAL and/or ROCr backends on 
 
 > **Scope:** This skill covers Windows-only PAL/ROCr developer builds via rocm-systems. For general HIP/OCL builds, use `lrt-rocm:the-rock`. For Linux monorepo builds, use `lrt-rocm:hip-ocl-monorepo-build`.
 
+## Required Repository Layout
+
+The following are **not** included in a default `rocm-systems` clone and must be added manually before configuring:
+
+```
+rocm-systems/
+  projects/
+    clr/
+    hip/
+    rocr-runtime/   ← must be added to projects/
+  shared/
+    amdgpu-windows-interop/   ← must be added to shared/
+      sc/
+      hsail-compiler/
+      pal/
+        lib/Release/x64/      ← *.lib.dvc files, requires DVC pull (see Prerequisites)
+```
+
+> `AMD_COMPUTE_WIN` points to `amdgpu-windows-interop/` and triggers ROCr being built statically from `rocr-runtime` source. Both must be present before configuring.
+
 ## When to Use
 
 - Building CLR with PAL and/or ROCr backends on Windows
@@ -23,7 +43,7 @@ Build guide for CLR (Compute Language Runtime) with PAL and/or ROCr backends on 
 | 1 | Static PAL + ROCr | Pre-built PAL and ROCr libraries linked statically | Available |
 | 2 | ROCr Backend Only | ROCr (HSA) enabled, PAL disabled | Available |
 
-> Start with **Configuration 3 (ROCr Backend Only)** — it is the simplest working setup.
+> Start with **Configuration 2 (ROCr Backend Only)** — it is the simplest working setup.
 
 ## Prerequisites
 
@@ -50,6 +70,13 @@ Additionally install:
   ```bash
   python TheRock/build_tools/install_rocm_from_artifacts.py --run-id <run_id> --amdgpu-family <family>
   ```
+- **DVC** — Required to pull PAL pre-built libs (stored as DVC pointers in `amdgpu-windows-interop`):
+  ```bat
+  pip install "dvc[s3]"
+  cd C:\code\rocm-systems
+  dvc pull
+  ```
+  The DVC remote (`s3://therock-dvc/rocm-systems`) allows anonymous access — no credentials needed. Run this before the first build and after updating `amdgpu-windows-interop`.
 
 > **Note:** Install Python for the current user to a path **without spaces**.
 
@@ -61,6 +88,7 @@ Run in **Command Prompt** (not PowerShell):
 set HIP_COMMON_DIR=c:/github/rocm-systems/projects/hip
 set HIPCC_BIN_DIR=c:\opt\rocm\bin
 set CMAKE_BUILD_PARALLEL_LEVEL=64
+:: Note: TheRock's LLVM is under lib\llvm\bin, not llvm\bin
 set PATH=C:\Program Files\CMake\bin;c:\opt\rocm\lib\llvm\bin
 
 mkdir build
@@ -129,11 +157,15 @@ cmake --build . --config Release -j 6 --target install
 | Issue | Solution |
 |-------|----------|
 | `'d3dumddi.h': No such file or directory` | Install WDK 28000 with all required components |
-| `Could not find ClangConfig.cmake / clang-config.cmake` | Add clang to PATH: `set PATH=C:\Program Files\CMake\bin;c:\opt\rocm\lib\llvm\bin` |
-| Clang not found despite `CMAKE_PREFIX_PATH` | **Known issue:** `CMAKE_PREFIX_PATH` does not work for Clang — must add to `PATH` directly |
+| `Could not find ClangConfig.cmake / clang-config.cmake` | Add `lib\llvm\bin` to PATH **before** running cmake: `set PATH=C:\Program Files\CMake\bin;c:\opt\rocm\lib\llvm\bin` |
+| Clang not found despite `CMAKE_PREFIX_PATH` | `CMAKE_PREFIX_PATH` does not work for Clang — must be on `PATH` before cmake configure runs; TheRock's LLVM is at `lib\llvm\bin`, not `llvm\bin` |
+| `LNK1181: cannot open pal.lib` | PAL `.lib` files are DVC pointers — run `dvc pull` from `rocm-systems/` root |
 
 ## Known Limitations
 
-1. Clang must be added to `PATH` directly — `CMAKE_PREFIX_PATH` does not work.
-2. The four build configurations are not yet enabled in TheRock (rocm-systems only).
-3. Users can switch between PAL and ROCr backends at runtime via an environment variable.
+1. Clang must be on `PATH` before cmake configure runs — `CMAKE_PREFIX_PATH` does not work.
+2. TheRock's LLVM is at `lib\llvm\bin\`, not `llvm\bin\` — ensure PATH uses the correct subdirectory.
+3. PAL `.lib` files are DVC pointers — `dvc pull` must be run before the first build and after updating `amdgpu-windows-interop`.
+4. `rocr-runtime` and `amdgpu-windows-interop` must be manually added to `rocm-systems/projects/` and `rocm-systems/shared/` respectively — they are not included in a default clone.
+5. These build configurations are not yet enabled in TheRock (rocm-systems only).
+6. Users can switch between PAL and ROCr backends at runtime via an environment variable.
