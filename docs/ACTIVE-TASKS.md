@@ -16,7 +16,7 @@ Description of what you're working on
 ## Quick Start New Task
 
 1. Create a new file: `tasks/active/task-name.md`
-2. Copy the template from `templates/example-task.md`
+2. Copy the template from `docs/example-task.md` in the lrt-rocm plugin
 3. Add it to this list
 4. Tell Claude: "I'm working on task-name" or use `/lrt-rocm:task task-name`
 

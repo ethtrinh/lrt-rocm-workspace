@@ -12,6 +12,23 @@ Project repository: https://github.com/ROCm/TheRock
 
 This is a meta-workspace. Actual source and build directories are scattered across the filesystem and referenced by absolute paths.
 
+## Task Routing
+
+Use this table to determine what to read and which skills to invoke based on the current task.
+
+| Work area | Context (read first) | Skills | Skip |
+|---|---|---|---|
+| **Building TheRock** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:the-rock` | tasks/, design docs |
+| **Building via rocm-systems** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:hip-ocl-monorepo-build` | tasks/, design docs |
+| **Building on Windows** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:pal-rocr-windows-build` | tasks/, design docs |
+| **Debugging test failures** | `docs/workflows/debugging.md` (plugin) | `lrt-rocm:systematic-debugging`, then `lrt-rocm:regression-bisect-hip-ocl` if regression | unrelated source trees |
+| **Fixing a bug** | `docs/workflows/debugging.md` (plugin) | `lrt-rocm:systematic-debugging` -> `lrt-rocm:test-driven-development` | unrelated source trees |
+| **Implementing a feature** | task file in `tasks/active/`, `docs/workflows/feature-development.md` (plugin) | `lrt-rocm:brainstorming` -> `lrt-rocm:writing-plans` -> `lrt-rocm:subagent-driven-development` | unrelated source trees |
+| **Reviewing code** | `docs/workflows/review-and-pr.md` (plugin) | `lrt-rocm:stage-review` -> `lrt-rocm:process-review` | build output |
+| **Preparing a PR** | `docs/workflows/review-and-pr.md` (plugin) | `lrt-rocm:prep-pr`, `lrt-rocm:squash-prep` | build output |
+| **Build system changes** | `docs/adding-third-party-dep.md` (plugin), CMakeLists.txt | `lrt-rocm:the-rock` (for context) | test output |
+| **Submodule coordination** | `directory-map.md`, `.gitmodules` | `rk.py` for topic/branch management | build output |
+
 ## Project Context
 
 ### What is ROCm?
@@ -30,7 +47,20 @@ As a build infra team member, typical work involves:
 - Build performance optimization
 - Package generation and distribution
 
-## Conventions & Gotchas
+## Naming Conventions
+
+Use these patterns so files are findable without searching:
+
+| File type | Pattern | Example |
+|---|---|---|
+| Task files | `tasks/active/<name>.md` | `tasks/active/fix-hip-linking.md` |
+| Completed tasks | `tasks/completed/<name>.md` | `tasks/completed/fix-hip-linking.md` |
+| Plans | `docs/lrt/plans/YYYY-MM-DD-<name>.md` | `docs/lrt/plans/2026-05-08-kpack-integration.md` |
+| Design docs | `docs/<name>.md` | `docs/hip-test-harness-design.md` |
+| Build logs | `logs/YYYY-MM-DD-<build-type>.log` | `logs/2026-05-08-therock-full.log` |
+| Patches | `patches/<component>-<description>.patch` | `patches/clr-fix-memcpy-alignment.patch` |
+
+## Conventions
 
 ### Build System
 - TheRock is a super-project. The builds under the submodules (like rocm-systems) are sub-projects
@@ -60,12 +90,6 @@ We work in commit stacks. Claude commits incrementally with WIP commits, user re
 | **Incremental** | After each Claude batch | HEAD~1..HEAD |
 | **Milestone** | Before PR/squash | main..HEAD |
 
-Key commands:
-- `/lrt-rocm:stage-review [repo]` - Stage changes and open in VSCode
-- `/lrt-rocm:vscode-diff [repo] [N]` - Open diffs in VSCode
-- `/lrt-rocm:process-review [repo]` - Find and fix RVW comments
-- `/lrt-rocm:prep-pr [repo]` - Full milestone review before PR
-
 #### Review Comment Format
 
 Add comments inline using `RVW:` or `RVWY:` prefix:
@@ -85,7 +109,7 @@ Then run `/lrt-rocm:process-review` to address them.
 
 - [ROCm Documentation](https://rocm.docs.amd.com/)
 - [TheRock repository](https://github.com/ROCm/TheRock)
-- [Adding Third-Party Dependencies](adding-third-party-dep.md)
+- Adding Third-Party Dependencies — see `docs/adding-third-party-dep.md` in the lrt-rocm plugin
 
 ## Notes
 
