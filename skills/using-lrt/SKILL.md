@@ -1,20 +1,28 @@
 ---
 name: using-lrt
-description: Use when starting any conversation - establishes how to route tasks to the right skills using the CLAUDE.md routing table
+description: Use when starting any conversation - establishes how to route tasks to the right skills using the routing table
 ---
 
 <SUBAGENT-STOP>
 If you were dispatched as a subagent to execute a specific task, skip this skill.
 </SUBAGENT-STOP>
 
-## How It Works
+## Task Routing
 
-The user's CLAUDE.md contains a **Task Routing** table that maps work areas to skills. When a user gives you a task:
+Match the user's task to a row and follow the route. Read the context files, then invoke the skills in order.
 
-1. **Match the task** to a row in the CLAUDE.md routing table
-2. **Read** the files listed in the "Read first" column
-3. **Invoke** the skills listed in the "Skills" column (in order if chained with ->)
-4. **Skip** the files listed in the "Skip" column to save tokens
+| Work area | Context (read first) | Skills | Skip |
+|---|---|---|---|
+| **Building TheRock** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:the-rock` | tasks/, design docs |
+| **Building via rocm-systems** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:hip-ocl-monorepo-build` | tasks/, design docs |
+| **Building on Windows** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:pal-rocr-windows-build` | tasks/, design docs |
+| **Debugging test failures** | `docs/workflows/debugging.md` (plugin) | `lrt-rocm:systematic-debugging`, then `lrt-rocm:regression-bisect-hip-ocl` if regression | unrelated source trees |
+| **Fixing a bug** | `docs/workflows/debugging.md` (plugin) | `lrt-rocm:systematic-debugging` -> `lrt-rocm:test-driven-development` | unrelated source trees |
+| **Implementing a feature** | task file in `tasks/active/`, `docs/workflows/feature-development.md` (plugin) | `lrt-rocm:brainstorming` -> `lrt-rocm:writing-plans` -> `lrt-rocm:subagent-driven-development` | unrelated source trees |
+| **Reviewing code** | `docs/workflows/review-and-pr.md` (plugin) | `lrt-rocm:stage-review` -> `lrt-rocm:process-review` | build output |
+| **Preparing a PR** | `docs/workflows/review-and-pr.md` (plugin) | `lrt-rocm:prep-pr`, `lrt-rocm:squash-prep` | build output |
+| **Build system changes** | `docs/adding-third-party-dep.md` (plugin), CMakeLists.txt | `lrt-rocm:the-rock` (for context) | test output |
+| **Submodule coordination** | `directory-map.md`, `.gitmodules` | `rk.py` for topic/branch management | build output |
 
 If the user explicitly requests a skill by name (e.g., `/lrt-rocm:the-rock`), invoke it directly — no routing needed.
 
@@ -27,7 +35,7 @@ digraph routing_flow {
     "Invoke requested skill directly" [shape=box];
     "Match task to routing table row" [shape=box];
     "Row matched?" [shape=diamond];
-    "Read files from 'Read first' column" [shape=box];
+    "Read files from 'Context' column" [shape=box];
     "Invoke skills from 'Skills' column (in order)" [shape=box];
     "Announce: 'Using [skill] to [purpose]'" [shape=box];
     "Follow skill exactly" [shape=box];
@@ -38,8 +46,8 @@ digraph routing_flow {
     "Invoke requested skill directly" -> "Follow skill exactly";
     "Explicit skill requested?" -> "Match task to routing table row" [label="no"];
     "Match task to routing table row" -> "Row matched?";
-    "Row matched?" -> "Read files from 'Read first' column" [label="yes"];
-    "Read files from 'Read first' column" -> "Invoke skills from 'Skills' column (in order)";
+    "Row matched?" -> "Read files from 'Context' column" [label="yes"];
+    "Read files from 'Context' column" -> "Invoke skills from 'Skills' column (in order)";
     "Invoke skills from 'Skills' column (in order)" -> "Announce: 'Using [skill] to [purpose]'";
     "Announce: 'Using [skill] to [purpose]'" -> "Follow skill exactly";
     "Row matched?" -> "Respond normally (no skill needed)" [label="no"];
