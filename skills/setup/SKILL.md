@@ -100,17 +100,16 @@ rocminfo 2>/dev/null | grep "Name:" | head -5
 If rocminfo is available, show detected GPUs and ask user to confirm the target architecture.
 If not available, ask the user to specify their target GPU family (e.g., gfx1201, gfx942, gfx90a).
 
-## 6. Scaffold workspace
+## 6. Create CLAUDE.md (if it doesn't exist)
 
-Copy template files into the current working directory:
+Only create CLAUDE.md if one doesn't already exist in the current directory. If one exists, leave it alone — it's the user's file.
 
 ```bash
 PLUGIN_ROOT="<path to this plugin>"
 
-# Core files
-cp "$PLUGIN_ROOT/templates/CLAUDE.md" ./CLAUDE.md
-# Task management structure
-mkdir -p tasks/active tasks/completed
+if [ ! -f ./CLAUDE.md ]; then
+  cp "$PLUGIN_ROOT/templates/CLAUDE.md" ./CLAUDE.md
+fi
 ```
 
 ## 7. Generate directory-map.md
@@ -170,17 +169,7 @@ Only include the Build Trees section if the user works with rocm-systems:
   - Target architecture: [<detected_gpu>]
 ```
 
-## 8. Update CLAUDE.md paths
-
-Replace placeholder paths in `CLAUDE.md` with the discovered values:
-- `<therock-dir>` with the actual TheRock directory path
-- `<your-gpu-family>` with the detected/chosen GPU family
-
-If the user also works with rocm-systems, additionally replace:
-- `<clr-build-dir>` with the actual CLR build directory (default: `<rocm_systems_path>/projects/clr/build`)
-- `<hip-tests-build-dir>` with the actual hip-tests build directory (default: `<rocm_systems_path>/projects/hip-tests/build`)
-
-## 9. VSCode integration (optional)
+## 8. VSCode integration (optional)
 
 Ask: "Do you use VSCode for code review? The plugin includes an MCP extension for opening diffs directly in VSCode."
 
@@ -195,7 +184,7 @@ If yes:
 3. Tell user to reload VSCode
 4. Configure MCP: `claude mcp add --transport sse vscode http://127.0.0.1:3742/sse`
 
-## 10. Summary
+## 9. Summary
 
 Report what was set up:
 - Operating system
