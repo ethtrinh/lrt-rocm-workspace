@@ -109,12 +109,8 @@ PLUGIN_ROOT="<path to this plugin>"
 
 # Core files
 cp "$PLUGIN_ROOT/templates/CLAUDE.md" ./CLAUDE.md
-cp "$PLUGIN_ROOT/templates/ACTIVE-TASKS.md" ./ACTIVE-TASKS.md
-cp "$PLUGIN_ROOT/templates/adding-third-party-dep.md" ./adding-third-party-dep.md
-
 # Task management structure
 mkdir -p tasks/active tasks/completed
-cp "$PLUGIN_ROOT/templates/example-task.md" ./tasks/active/example-task.md
 
 # Workflows
 mkdir -p workflows
