@@ -111,11 +111,6 @@ PLUGIN_ROOT="<path to this plugin>"
 cp "$PLUGIN_ROOT/templates/CLAUDE.md" ./CLAUDE.md
 # Task management structure
 mkdir -p tasks/active tasks/completed
-
-# Workflows
-mkdir -p workflows
-cp "$PLUGIN_ROOT/workflows/build-pipeline.md" ./workflows/
-cp "$PLUGIN_ROOT/workflows/debugging-tips.md" ./workflows/
 ```
 
 ## 7. Generate directory-map.md
