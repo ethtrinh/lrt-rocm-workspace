@@ -24,9 +24,17 @@ Configure (CMake) -> Build -> Test -> Iterate
 ```
 
 1. **Configure** — Set CMake flags for target GPU and build type. Check both source tree and build tree caches.
-2. **Build** — Full build first time, incremental after. Watch for submodule pointer mismatches.
+2. **Build** — Full build first time, incremental after. Prefer the smallest component or target that validates the current task.
 3. **Test** — Run relevant tests (hip-tests, OCL tests). If failures, switch to the debugging workflow.
 4. **Iterate** — Fix, rebuild incrementally, re-test.
+
+## Build discipline
+
+- Prefer targeted component builds over full ROCm builds when validating a scoped task.
+- Ask before launching long full builds or jobs that consume shared GPU resources.
+- Print the working directory, command, and relevant environment before running a build when the user has not already provided the exact command.
+- Capture the command, environment, exit status, and result.
+- Map each configure/build/test result back to the task or plan step it validates.
 
 ## Common Gotchas
 
