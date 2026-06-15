@@ -3,6 +3,8 @@
 This document maps out where all ROCm-related directories live on this system.
 It is auto-populated by `/lrt-rocm:setup` or can be edited manually.
 
+Use absolute paths. Keep secrets, tokens, and credentials out of this file. Leave unknown paths blank; use `<placeholder>` values only when the user must replace them before the workspace is ready.
+
 ## Environment
 
 | Setting | Value |
