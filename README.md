@@ -43,6 +43,9 @@ This will:
 |---|---|
 | `setup` | First-time workspace setup and directory discovery |
 | `hip-ocl-monorepo-build` | Build ROCr, HIP, and OpenCL from the rocm-systems monorepo |
+| `lrt-build-routing` | Choose TheRock, rocm-systems/CLR, tests, or installed ROCm for LRT work |
+| `lrt-runtime-debugging` | Diagnose HIP/OpenCL runtime failures methodically |
+| `lrt-test-selection` | Select focused HIP/OpenCL tests or reproducers |
 | `regression-bisect-hip-ocl` | Git bisect for HIP/OCL test regressions |
 | `the-rock` | Build HIP, and OpenCL from TheRock |
 
@@ -84,6 +87,7 @@ agents/          named subagent definitions
 hooks/           session-start bootstrap
 scripts/         helper scripts (rk.py, review.py, etc.)
 templates/       workspace scaffolding templates
+docs/            workflow and reference documentation
 workflows/       common procedure documentation
 vscode-plugins/  VSCode MCP extension for diff integration
 ```
