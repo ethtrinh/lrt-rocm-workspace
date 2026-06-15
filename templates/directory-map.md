@@ -18,12 +18,8 @@ These aliases are used by `/lrt-rocm:stage-review` and other commands to resolve
 | therock | | Main ROCm build repo (builds in-tree) |
 | workspace | | This meta-workspace |
 
-<!-- Uncomment below if you also work with rocm-systems directly. Runtime aliases help LRT build, test, and debugging skills locate source and test trees. -->
-<!-- | rocm-systems | | ROCm Systems Superrepo (submodule) | -->
-<!-- | clr | | CLR/HIP/OCL runtime source tree, if separate | -->
-<!-- | hip-tests | | HIP tests checkout or submodule | -->
-<!-- | ocl-tests | | OpenCL tests checkout or location | -->
-<!-- | rocr-runtime | | ROCr runtime source tree, if separate | -->
+<!-- Uncomment below if you also work with rocm-systems directly. CLR, HIP tests, OCL tests, and ROCr runtime normally live under rocm-systems rather than separate checkouts. Add separate aliases only if your local layout really uses split repositories. -->
+<!-- | rocm-systems | | ROCm Systems Superrepo (contains projects/clr, projects/hip-tests, OCL tests, and ROCr runtime sources) | -->
 <!-- | rocm-libraries | | ROCm Libraries Superrepo (submodule) | -->
 <!-- | rocm-kpack | | Kernel packaging tools (submodule) | -->
 
