@@ -13,12 +13,14 @@ Match the user's task to a row and follow the route. Read the context files, the
 
 | Work area | Context (read first) | Skills | Skip |
 |---|---|---|---|
+| **Choosing an LRT build path** | `directory-map.md`, `docs/workflows/building.md`, `docs/workflows/lrt-runtime-development.md` (plugin) | `lrt-rocm:lrt-build-routing` | unrelated source trees |
 | **Building TheRock** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:the-rock` | tasks/, design docs |
 | **Building via rocm-systems** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:hip-ocl-monorepo-build` | tasks/, design docs |
 | **Building on Windows** | `directory-map.md`, `docs/workflows/building.md` (plugin) | `lrt-rocm:pal-rocr-windows-build` | tasks/, design docs |
-| **Debugging test failures** | `docs/workflows/debugging.md` (plugin) | `lrt-rocm:systematic-debugging`, then `lrt-rocm:regression-bisect-hip-ocl` if regression | unrelated source trees |
-| **Fixing a bug** | `docs/workflows/debugging.md` (plugin) | `lrt-rocm:systematic-debugging` -> `lrt-rocm:test-driven-development` | unrelated source trees |
-| **Implementing a feature** | task file in `tasks/active/`, `docs/workflows/feature-development.md` (plugin) | `lrt-rocm:brainstorming` -> `lrt-rocm:writing-plans` -> `lrt-rocm:subagent-driven-development` | unrelated source trees |
+| **Debugging LRT runtime failures** | `docs/workflows/lrt-runtime-development.md`, `docs/workflows/debugging.md` (plugin) | `lrt-rocm:lrt-runtime-debugging`, then `lrt-rocm:systematic-debugging` if root cause is still unclear | unrelated source trees |
+| **Selecting runtime tests** | `directory-map.md`, `docs/workflows/lrt-runtime-development.md` (plugin) | `lrt-rocm:lrt-test-selection` | unrelated source trees, broad test logs |
+| **Fixing a bug** | `docs/workflows/debugging.md`, `docs/workflows/lrt-runtime-development.md` (plugin) | `lrt-rocm:systematic-debugging` -> `lrt-rocm:test-driven-development` | unrelated source trees |
+| **Implementing a feature** | task file in `tasks/active/`, `docs/workflows/feature-development.md`, `docs/workflows/lrt-runtime-development.md` (plugin) | `lrt-rocm:brainstorming` -> `lrt-rocm:writing-plans` -> `lrt-rocm:subagent-driven-development` | unrelated source trees |
 | **Reviewing code** | `docs/workflows/review-and-pr.md` (plugin) | `lrt-rocm:stage-review` -> `lrt-rocm:process-review` | build output |
 | **Preparing a PR** | `docs/workflows/review-and-pr.md` (plugin) | `lrt-rocm:prep-pr`, `lrt-rocm:squash-prep` | build output |
 | **Build system changes** | `docs/adding-third-party-dep.md` (plugin), CMakeLists.txt | `lrt-rocm:the-rock` (for context) | test output |

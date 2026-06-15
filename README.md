@@ -87,7 +87,7 @@ agents/          named subagent definitions
 hooks/           session-start bootstrap
 scripts/         helper scripts (rk.py, review.py, etc.)
 templates/       workspace scaffolding templates
-docs/           workflow and reference documentation
+docs/            workflow and reference documentation
 workflows/       common procedure documentation
 vscode-plugins/  VSCode MCP extension for diff integration
 ```
