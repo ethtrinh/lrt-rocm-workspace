@@ -92,6 +92,7 @@ vscode-plugins/  VSCode MCP extension for diff integration
 
 - **rk.py** — Manages coordinated topic branches across TheRock superproject and submodules
 - **review.py** — Code review workflow helper (staging, comments, diffs)
+- **workspace-status.py** — Reports configured directory-map paths and git status
 - **stella-ide-mcp** — VSCode extension for opening diffs and files via MCP
 
 ## Author
