@@ -33,6 +33,17 @@ Stage changes -> Review diffs -> Add RVW comments -> Process comments -> Repeat 
 
 Works in any language: `# RVW:` (Python/shell), `<!-- RVW: -->` (Markdown/HTML).
 
+## Readiness checklist
+
+Before PR prep or merge readiness claims, confirm:
+
+- The changed behavior has targeted verification evidence.
+- TDD evidence is present for implementation work: failing test/reproducer or baseline before the fix, then a passing targeted result after the fix.
+- Multi-behavior work was split into independently testable tasks or the review explains why that was not practical.
+- Build/test results are mapped to the task or plan step they validate.
+- Worktree isolation was used for non-trivial implementation work, or the author documented why it was not practical.
+- Critical findings are fixed, and important findings are fixed or explicitly accepted by the human reviewer.
+
 ## Skip
 
-Build output, test logs, unrelated source trees — focus on the changed files only.
+Build output from unrelated components, unrelated source trees, and stale generated artifacts — focus on changed files and verification evidence.
