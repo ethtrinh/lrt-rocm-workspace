@@ -59,8 +59,16 @@ Document important decisions made during this task:
 - `path/to/CMakeLists.txt` - Build system updates
 
 ### Testing Done
-- What tests were run
-- Results and any issues found
+- Failing test, reproducer, or baseline result captured before implementation
+- Targeted verification command and result for each scoped task
+- Broader regression tests, if needed
+
+### TDD Plan
+- Observable behavior under test:
+- Failing test or reproducer to run before implementation:
+- Expected failing behavior:
+- Minimal implementation target:
+- Passing command required before completion:
 
 ## Blockers & Issues
 
