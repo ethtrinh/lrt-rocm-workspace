@@ -39,11 +39,18 @@ git diff {BASE_SHA}..{HEAD_SHA}
 - Performance implications?
 - Security concerns?
 
-**Testing:**
-- Tests actually test logic (not mocks)?
-- Edge cases covered?
-- Integration tests where needed?
-- All tests passing?
+**Testing and TDD evidence:**
+- Was a failing test, focused reproducer, or baseline result identified before implementation?
+- Do tests actually test behavior through real interfaces rather than mocks or implementation details?
+- Are edge cases covered?
+- Are integration tests included where needed?
+- Are verification results mapped to the completed plan step or task?
+- Are all relevant tests passing with fresh output?
+
+**Task scope and workflow evidence:**
+- If the change spans multiple behaviors, was it split into independently testable tasks?
+- Does each task have an explicit verification command, test, or rationale for why no test is practical?
+- Was git worktree isolation used for non-trivial implementation work, or was a clear rationale given?
 
 **Requirements:**
 - All plan requirements met?
@@ -68,7 +75,7 @@ git diff {BASE_SHA}..{HEAD_SHA}
 [Bugs, security issues, data loss risks, broken functionality]
 
 #### Important (Should Fix)
-[Architecture problems, missing features, poor error handling, test gaps]
+[Architecture problems, missing features, poor error handling, test gaps, missing TDD evidence, missing scoped-task verification]
 
 #### Minor (Nice to Have)
 [Code style, optimization opportunities, documentation improvements]
@@ -78,6 +85,8 @@ git diff {BASE_SHA}..{HEAD_SHA}
 - What's wrong
 - Why it matters
 - How to fix (if not obvious)
+
+Treat missing TDD evidence, missing task-level verification, or missing worktree rationale as Important unless the change is documentation/config-only or the author explains why that evidence was not practical.
 
 ### Recommendations
 [Improvements for code quality, architecture, or process]
