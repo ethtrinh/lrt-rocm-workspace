@@ -20,6 +20,10 @@ These aliases are used by `/lrt-rocm:stage-review` and other commands to resolve
 
 <!-- Uncomment below if you also work with rocm-systems directly -->
 <!-- | rocm-systems | | ROCm Systems Superrepo (submodule) | -->
+<!-- | clr | | CLR/HIP/OCL runtime source tree, if separate | -->
+<!-- | hip-tests | | HIP tests checkout or submodule | -->
+<!-- | ocl-tests | | OpenCL tests checkout or location | -->
+<!-- | rocr-runtime | | ROCr runtime source tree, if separate | -->
 <!-- | rocm-libraries | | ROCm Libraries Superrepo (submodule) | -->
 <!-- | rocm-kpack | | Kernel packaging tools (submodule) | -->
 
